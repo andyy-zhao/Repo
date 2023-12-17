@@ -1,0 +1,28 @@
+{
+    "name": "Youtube Ad Speedster",
+    "version": "1.0.0",
+    "description": "youtube ad skipper",
+    "manifest_version": 3,
+    "icons": {
+        "128": "128.png"
+    },
+    "author": "Andy Zhao",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "webNavigation"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+          }
+    ]
+}
