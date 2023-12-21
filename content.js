@@ -4,13 +4,30 @@
 let intervalId;
 let checkTimes = 0;
 let btnInterval;
+let observer = null;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === 'enable') {
         intervalId = setInterval(checkForAd, 500);
+        const targetNode = document.getElementsByClassName('ytp-time-duration')[0];
+        const initialVideoLength = document.getElementsByClassName('ytp-time-duration')[0].innerHTML;
+        const config = { attributes: true, childList: true, subtree: true};
+        // Callback function to execute when mutations are observed
+        const callback = (mutationList, observer) => {
+            for (const mutation of mutationList) {
+                const currentVideoTime = document.getElementsByClassName('ytp-time-duration')[0].innerHTML;
+                if (currentVideoTime !== initialVideoLength) {
+                    intervalId = setInterval(checkForAd, 500);
+                }
+            }   
+        };
+        observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
+        console.log("video_length: ", video_length[0].innerHTML)
     } else if (request.action === 'disable') {
         document.documentElement.style.filter = 'none';
         reset();
+        if (observer) observer.disconnect();
     }
 });
 
