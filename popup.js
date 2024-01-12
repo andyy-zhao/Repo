@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function popup() {
     var disableButton = document.getElementById('btn');
+    var githubButton = document.getElementById('github');
     disableButton.addEventListener('click', function() {
         if(disableButton.innerHTML === "Disable") { 
             disableButton.innerHTML = "Enable";
@@ -33,5 +34,9 @@ function popup() {
                 chrome.tabs.sendMessage(activeTab.id, { "action": 'enable' });
             });
         }
+    });
+    githubButton.addEventListener('click', function() {
+        const url = 'https://github.com/andyy-zhao/Youtube-Ad-Skip-Chrome-Extension';
+        window.open(url, '_blank').focus();
     });
 }
