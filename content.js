@@ -53,7 +53,9 @@ function checkSkipAd() {
 }
 
 function speedUp() {
-    document.getElementsByClassName("video-stream html5-main-video")[0].playbackRate = 16.0;
+    let video =  document.getElementsByClassName("video-stream html5-main-video")[0];
+    video.playbackRate = 16.0;
+    video.muted = true;
 }
 
 function reset() {
